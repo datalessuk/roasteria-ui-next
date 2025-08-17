@@ -8,22 +8,22 @@ import {
 import { IDropDownOption } from "@/types/dropdown";
 
 interface DropDownProps {
-  modelValue?: string;
+  value?: string;
   onChange?: (value: string) => void;
   dropDownOptions: IDropDownOption[];
-  placeHolder: string;
+  placeholder: string;
 }
 
 export default function DropDown({
-  modelValue,
+  value,
   onChange,
   dropDownOptions,
-  placeHolder,
+  placeholder,
 }: DropDownProps) {
   return (
-    <Select value={modelValue} onValueChange={onChange}>
+    <Select value={value} onValueChange={onChange}>
       <SelectTrigger>
-        <SelectValue placeholder={placeHolder} />
+        <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
         {dropDownOptions.map((opt) => (

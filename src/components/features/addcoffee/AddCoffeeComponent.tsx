@@ -385,10 +385,10 @@ export default function AddCoffeeComponent({
                   Roast Level <span className="text-red-500">*</span>
                 </Label>
                 <DropDown
-                  modelValue={watchedValues.roastLevel} // RHF watch value
+                  value={watchedValues.roastLevel} // RHF watch value
                   onChange={(value: string) => setValue("roastLevel", value)} // updates RHF
                   dropDownOptions={roastLevelDropDownOptions}
-                  placeHolder="Select a roast level"
+                  placeholder="Select a roast level"
                 />
                 {errors.roastLevel && (
                   <p className="text-red-500 text-sm">
@@ -421,12 +421,12 @@ export default function AddCoffeeComponent({
                   Processing Method <span className="text-red-500">*</span>
                 </Label>
                 <DropDown
-                  modelValue={watchedValues.processingMethod} // <-- use RHF watch
+                  value={watchedValues.processingMethod}
                   onChange={(value: string) =>
                     setValue("processingMethod", value)
-                  } // update RHF
+                  }
                   dropDownOptions={processingMethodDropDownOptions}
-                  placeHolder="Select a processing method"
+                  placeholder="Select a processing method"
                 />
                 {errors.processingMethod && (
                   <p className="text-red-500 text-sm">

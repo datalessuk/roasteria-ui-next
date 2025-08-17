@@ -6,8 +6,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "@/components/features/footer/Footer";
 
 const outfit = Outfit({
-  subsets: ["latin"], // include the character sets you need
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"], // optional
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={outfit.className} suppressHydrationWarning>
-      <body>
+      <body className="min-h-screen flex flex-col">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -26,7 +26,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <NavBar />
-          {children}
+          <main className="flex-1">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>
