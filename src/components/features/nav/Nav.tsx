@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { createClient } from "@/utils/supabase/client";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import Link from "next/link";
 
 import { useRouter } from "next/navigation";
 
@@ -33,7 +34,6 @@ export default function NavBar() {
     setMounted(true);
   }, []);
 
-  // Simple theme toggle without state management for now
   const toggleTheme = () => {
     document.documentElement.classList.toggle("dark");
   };
@@ -43,7 +43,7 @@ export default function NavBar() {
     if (error) {
       console.error("Error signing out:", error);
     } else {
-      router.push("/login"); // or wherever you want to redirect
+      router.push("/login");
     }
   };
 
@@ -51,12 +51,13 @@ export default function NavBar() {
     <div className="dark:bg-gray-950/80 backdrop-blur-md">
       <nav className="border-b border-white/10 px-6 py-4">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
-          {/* Left side - Logo and Navigation */}
           <div className="flex items-center space-x-8">
-            {/* Logo */}
-            <div className="text-white text-2xl font-bold">Spro</div>
+            <div>
+              <Link href="/">
+                <h1 className="text-2xl font-bold">Roasteria</h1>
+              </Link>
+            </div>
 
-            {/* Desktop Navigation */}
             <NavigationMenu className="hidden md:flex">
               <NavigationMenuList className="space-x-6">
                 <NavigationMenuItem>
@@ -69,7 +70,7 @@ export default function NavBar() {
                 </NavigationMenuItem>
                 <NavigationMenuItem>
                   <NavigationMenuLink
-                    href="#"
+                    href="/search"
                     className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
                   >
                     Advanced Search
@@ -87,7 +88,6 @@ export default function NavBar() {
             </NavigationMenu>
           </div>
 
-          {/* Center - Search Bar */}
           <div className="flex-1 max-w-md mx-8">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
@@ -99,10 +99,8 @@ export default function NavBar() {
             </div>
           </div>
 
-          {/* Right side - Theme toggle and Profile */}
           <div className="flex items-center space-x-4">
-            {/* Theme Toggle - only render after mount */}
-            {mounted && (
+            {/* {mounted && (
               <Button
                 variant="ghost"
                 size="sm"
@@ -111,9 +109,8 @@ export default function NavBar() {
               >
                 <Sun className="h-5 w-5" />
               </Button>
-            )}
+            )} */}
 
-            {/* Profile Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -148,7 +145,6 @@ export default function NavBar() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Mobile Menu */}
             <Sheet>
               <SheetTrigger asChild>
                 <Button

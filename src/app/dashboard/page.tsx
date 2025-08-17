@@ -12,7 +12,6 @@ export default function DashBoard() {
   const openSearch = () => {
     router.push(`/search`);
   };
-  console.log(coffees);
 
   return (
     <div>
@@ -58,17 +57,17 @@ export default function DashBoard() {
             <HomePageHero
               title="Single Origin Coffees"
               text="Explore Single Origin"
-              url="single_origin=true"
+              url="origin=true"
             />
             <HomePageHero
               title="Light roasts"
               text="Explore Light Roasts"
-              url="roast_level=light"
+              url="roast=light"
             />
             <HomePageHero
               title="Natural Coffees"
               text="Explore Natural Processed"
-              url="processing_method=natural"
+              url="proccessing=natural"
             />
           </div>
         </div>

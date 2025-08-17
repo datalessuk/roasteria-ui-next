@@ -3,7 +3,5 @@
 import { Button } from "@/components/ui/button";
 
 export default function Coffees() {
-  return <div>
-    <Button></Button>
-  </div>;
+  return <div>{/* <Button></Button> */}</div>;
 }
