@@ -5,6 +5,7 @@ publish = ".next"
 
 [build.environment]
 NODE_VERSION = "20.x"
+NETLIFY_BUILD_IMAGE = "sawtooth"
 NEXT_DISABLE_ESLINT = "true"
 
 [[plugins]]
