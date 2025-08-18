@@ -4,7 +4,7 @@ command = "npm run build"
 publish = ".next"
 
 [build.environment]
-NODE_VERSION = "20.24.0"
+NODE_VERSION = "20.x"
 NEXT_DISABLE_ESLINT = "true"
 
 [[plugins]]
