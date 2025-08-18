@@ -113,6 +113,19 @@
   --dark-heading-text: #e6ad53;
 }
 
+.status-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 5rem; /* 20 * 0.25rem */
+  height: 5rem; /* 20 * 0.25rem */
+  background-color: #1f2937; /* bg-gray-900 */
+  border: 1px solid #374151; /* border-gray-700 */
+  border-radius: 0.75rem; /* rounded-xl */
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
 .badge {
   background-color: #f68a5c;
   padding: 5px;

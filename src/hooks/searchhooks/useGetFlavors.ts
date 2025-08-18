@@ -16,8 +16,6 @@ export function useUniqueFlavors() {
   useEffect(() => {
     supabase.rpc("get_unique_flavors").then(({ data, error }) => {
       if (error) throw error;
-
-      // Simple deduplication keeping original case of first occurrence
       const seen = new Set<string>();
       const unique =
         (data as FlavorData[])
@@ -31,8 +29,6 @@ export function useUniqueFlavors() {
 
       setFlavors(unique);
     });
-    //.catch((err: Error) => setError(err.message))
-    //.finally(() => setLoading(false));
   }, []);
 
   return { flavors, loading, error };
