@@ -15,9 +15,9 @@ export default function DashBoard() {
 
   return (
     <div>
-      <section className="w-full px-4 text-center mx-auto p-30 bg-gradient-to-b from-[#2C1810] to-[#4A3628] dark:from-gray-900 dark:to-gray-800">
+      <section className="w-full px-4 text-center mx-auto p-45 bg-gradient-to-b from-[#2C1810] to-[#4A3628] dark:from-gray-900 dark:to-gray-800">
         <div className="max-w-3xl mx-auto">
-          <h1 className="text-5xl font-bold mb-4 text-[var(--dark-heading-text)]">
+          <h1 className="text-7xl font-bold mb-4 text-[var(--dark-heading-text)]">
             Build your personal coffee vault.
           </h1>
           <p className="text-lg">
@@ -41,7 +41,7 @@ export default function DashBoard() {
             <h1 className="text-4xl">Featured Coffees</h1>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 justify-items-center">
-            {coffees.map((coffee) => (
+            {coffees.slice(0, 4).map((coffee) => (
               <HomePageCoffeeCard key={coffee.id} coffee={coffee} />
             ))}
           </div>
