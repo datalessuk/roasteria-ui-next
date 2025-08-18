@@ -8,7 +8,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-const isValidImageUrl = (url: any) =>
+const isValidImageUrl = (url: string) =>
   typeof url === "string" && /^https?:\/\//.test(url);
 
 export async function POST(req: Request) {
