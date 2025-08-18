@@ -8,9 +8,6 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "engines": {
-    "node": "22.x"
-  },
   "dependencies": {
     "@hookform/resolvers": "^5.2.1",
     "@netlify/plugin-nextjs": "^5.12.0",
