@@ -1,3 +1,4 @@
+export const runtime = "nodejs";
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { createClient } from "@/utils/supabase/server";
