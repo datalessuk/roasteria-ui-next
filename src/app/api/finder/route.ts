@@ -4,6 +4,8 @@ import { createClient } from "@/utils/supabase/server";
 import * as cheerio from "cheerio";
 import { ICoffeeImport } from "@/types/import";
 
+import fetch from "node-fetch";
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
