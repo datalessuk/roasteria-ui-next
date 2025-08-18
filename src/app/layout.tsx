@@ -1,9 +1,12 @@
+"use client";
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/features/nav/Nav";
 import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "@/components/features/footer/Footer";
+import { useUserStore } from "@/store/userStore";
+import { useEffect } from "react";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -16,6 +19,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const fetchProfile = useUserStore((state) => state.fetchProfile);
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
+
   return (
     <html lang="en" className={outfit.className} suppressHydrationWarning>
       <body className="min-h-screen flex flex-col">

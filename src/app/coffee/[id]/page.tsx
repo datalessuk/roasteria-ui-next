@@ -6,6 +6,7 @@ import CoffeeInfoText from "@/components/features/layouts/CoffeeInfoText";
 import { Button } from "@/components/ui/button";
 import CoffeeInfoFlavor from "@/components/features/layouts/CoffeeInfoFlavor";
 import CoffeeInfoAbout from "@/components/features/layouts/CoffeeInfoAbout";
+import CoffeeStats from "@/components/features/coffee/CoffeeStats";
 
 export default function CoffeeSingle() {
   const { id } = useParams<{ id: string }>();
@@ -23,7 +24,7 @@ export default function CoffeeSingle() {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="container pt-4 mx-auto py-8 ">
+    <div className="container pt-4 mx-auto py-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
         <div>
           <h1 className="text-4xl md:text-6xl mb-4">{coffee?.name}</h1>
@@ -43,7 +44,7 @@ export default function CoffeeSingle() {
               coffee={coffee?.processing_method}
               title="Process"
             />
-            <CoffeeInfoText coffee="coffee?.roast_level" title="Roast" />
+            <CoffeeInfoText coffee={coffee?.roast_level} title="Roast" />
             <CoffeeInfoText
               coffee={parseOrigin(!!coffee?.single_origin)}
               title="Type"
@@ -60,6 +61,9 @@ export default function CoffeeSingle() {
             >
               Coffee Link
             </Button>
+          </div>
+          <div>
+            <CoffeeStats coffee={coffee} />
           </div>
         </div>
       </div>

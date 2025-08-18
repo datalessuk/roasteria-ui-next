@@ -37,8 +37,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useUserStore } from "@/store/userStore";
 
 export default function NavBar() {
+  const { profile, clearProfile } = useUserStore();
+
   const supabase = createClient();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
@@ -56,6 +59,7 @@ export default function NavBar() {
     if (error) {
       console.error("Error signing out:", error);
     } else {
+      clearProfile();
       router.push("/login");
     }
   };
@@ -111,10 +115,7 @@ export default function NavBar() {
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuLink
-                    href="/search"
-                    className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
-                  >
+                  <NavigationMenuLink className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">
                     Brewing Ratio
                   </NavigationMenuLink>
                 </NavigationMenuItem>
@@ -169,40 +170,51 @@ export default function NavBar() {
                 <Sun className="h-5 w-5" />
               </Button>
             )} */}
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
+            {profile && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="relative h-8 w-8 rounded-full"
+                  >
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage src="/avatars/01.png" alt="@username" />
+                      <AvatarFallback className="bg-amber-500 text-slate-900 font-semibold">
+                        D
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  className="w-56 bg-slate-800 border-slate-700"
+                  align="end"
+                  forceMount
+                >
+                  <DropdownMenuItem
+                    asChild
+                    className="text-gray-300 hover:text-white hover:bg-slate-700 cursor-pointer"
+                  >
+                    <Link href="/profile">Profile</Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    className="text-gray-300 hover:text-white hover:bg-slate-700"
+                    onClick={signOut}
+                  >
+                    Sign out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
+            {!profile && (
+              <div>
                 <Button
-                  variant="ghost"
-                  className="relative h-8 w-8 rounded-full"
+                  onClick={() => router.push("/login")}
+                  variant={"custom"}
                 >
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage src="/avatars/01.png" alt="@username" />
-                    <AvatarFallback className="bg-amber-500 text-slate-900 font-semibold">
-                      D
-                    </AvatarFallback>
-                  </Avatar>
+                  Login
                 </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="w-56 bg-slate-800 border-slate-700"
-                align="end"
-                forceMount
-              >
-                <DropdownMenuItem
-                  asChild
-                  className="text-gray-300 hover:text-white hover:bg-slate-700 cursor-pointer"
-                >
-                  <Link href="/profile">Profile</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className="text-gray-300 hover:text-white hover:bg-slate-700"
-                  onClick={signOut}
-                >
-                  Sign out
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+              </div>
+            )}
 
             <Sheet>
               <SheetTrigger asChild>
