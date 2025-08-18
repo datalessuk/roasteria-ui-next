@@ -6,7 +6,7 @@ import { Loader2 } from "lucide-react";
 import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 import AddCoffeeComponent from "@/components/features/addcoffee/AddCoffeeComponent";
-import { boolean, z } from "zod";
+import { z } from "zod";
 import { ICoffeeImport } from "@/types/import";
 
 const urlSchema = z.string().url({ message: "Invalid URL" });
