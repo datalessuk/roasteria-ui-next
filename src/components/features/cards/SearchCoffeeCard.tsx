@@ -1,16 +1,26 @@
 import { ICoffee } from "@/types/coffee";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface CoffeeCardProps {
   coffee?: ICoffee;
 }
 
 export default function SearchCoffeeCard({ coffee }: CoffeeCardProps) {
+  const router = useRouter();
   if (!coffee) return null;
 
+  const openCoffee = (id: number): void => {
+    if (!id) return;
+    router.push(`/coffee/${id}`);
+  };
+
   return (
-    <div className="block w-full cursor-pointer bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 border border-gray-200 dark:border-gray-700">
+    <div
+      onClick={() => openCoffee(coffee?.id)}
+      className="block w-full cursor-pointer bg-white dark:bg-gray-800 rounded-xl p-4 shadow-sm hover:shadow-md transition-all hover:-translate-y-1 border border-gray-200 dark:border-gray-700"
+    >
       <figure className="flex justify-center p-4">
         <Image
           className="object-cover rounded-lg mx-auto w-[240px] h-[191px]"

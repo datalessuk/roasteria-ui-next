@@ -113,6 +113,11 @@
   --dark-heading-text: #e6ad53;
 }
 
+.badge {
+  background-color: #f68a5c;
+  padding: 5px;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

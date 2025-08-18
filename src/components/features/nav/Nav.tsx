@@ -19,11 +19,24 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { z } from "zod";
+
 import { createClient } from "@/utils/supabase/client";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import Link from "next/link";
 
 import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export default function NavBar() {
   const supabase = createClient();
@@ -46,6 +59,35 @@ export default function NavBar() {
       router.push("/login");
     }
   };
+
+  const FormSchema = z.object({
+    search: z.string(),
+  });
+
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      search: "",
+    },
+  });
+
+  function InputForm() {
+    const form = useForm<z.infer<typeof FormSchema>>({
+      resolver: zodResolver(FormSchema),
+      defaultValues: {
+        search: "",
+      },
+    });
+  }
+
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    const query = new URLSearchParams();
+    if (data.search) {
+      query.set("name", data.search);
+    }
+    const searchUrl = `/search?${query.toString()}`;
+    router.push(searchUrl);
+  }
 
   return (
     <div className="dark:bg-gray-950/80 backdrop-blur-md">
@@ -73,7 +115,7 @@ export default function NavBar() {
                     href="/search"
                     className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
                   >
-                    Advanced Search
+                    Brewing Ratio
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -89,14 +131,31 @@ export default function NavBar() {
           </div>
 
           <div className="flex-1 max-w-md mx-8">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-              <Input
-                type="text"
-                placeholder="Search coffees..."
-                className="w-full bg-white/10 backdrop-blur-sm border-white/20 rounded-full py-2.5 pl-10 pr-4 text-white placeholder-gray-400 focus:ring-amber-500/50 focus:border-amber-500/50"
-              />
-            </div>
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="relative w-full"
+              >
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <FormField
+                  control={form.control}
+                  name="search" // match your zod schema
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          type="text"
+                          placeholder="Search coffees..."
+                          className="w-full bg-white/80 backdrop-blur-sm border-white/20 rounded-full py-2.5 pl-10 pr-4 placeholder-gray-400 focus:ring-amber-500/50 focus:border-amber-500/50"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </form>
+            </Form>
           </div>
 
           <div className="flex items-center space-x-4">
@@ -130,11 +189,11 @@ export default function NavBar() {
                 align="end"
                 forceMount
               >
-                <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-slate-700">
-                  Profile
-                </DropdownMenuItem>
-                <DropdownMenuItem className="text-gray-300 hover:text-white hover:bg-slate-700">
-                  Settings
+                <DropdownMenuItem
+                  asChild
+                  className="text-gray-300 hover:text-white hover:bg-slate-700 cursor-pointer"
+                >
+                  <Link href="/profile">Profile</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="text-gray-300 hover:text-white hover:bg-slate-700"

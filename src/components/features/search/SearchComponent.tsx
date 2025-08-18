@@ -101,11 +101,7 @@ export default function SearchComponent() {
               >
                 Reset
               </Button>
-              <Button
-                variant="custom"
-                type="submit"
-                onClick={() => console.log("🔍 SEARCH BUTTON CLICKED")}
-              >
+              <Button variant="custom" type="submit">
                 Search
               </Button>
             </div>
