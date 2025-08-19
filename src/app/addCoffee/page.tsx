@@ -44,14 +44,17 @@ export default function AddCoffee() {
       urlSchema.parse(url); // Validate URL
       setLoading(true);
 
-      const res = await fetch("/api/finder", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${accessToken || ""}`,
-        },
-        body: JSON.stringify({ url }),
-      });
+      const res = await fetch(
+        "https://owzd1vedhh.execute-api.eu-west-2.amazonaws.com/prod/import",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${accessToken || ""}`,
+          },
+          body: JSON.stringify({ url }),
+        }
+      );
 
       if (!res.ok) {
         throw new Error(`Failed: ${res.status}`);
@@ -87,14 +90,13 @@ export default function AddCoffee() {
       </div>
 
       <div className="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
-        <p className="text-xs">
+        <p className="text-base">
           For the most accurate and detailed coffee information, please use the
           manual import option unless the Import from URL feature below
           (currently in beta) is compatible with your coffee’s product page.
           Once submitted, your coffee entry will go through an admin review
           before it&apos;s visible to others. In the meantime, you&apos;ll still
-          be able to view and interact with it right away. Thanks for helping
-          grow our coffee community! ☕
+          be able to view and interact with it right away.
         </p>
       </div>
 
@@ -119,17 +121,18 @@ export default function AddCoffee() {
       </form>
       {error && <p className="text-red-500 mb-2">{error}</p>}
 
-      <div className="flex flex-col items-center pt-4">
-        <h1 className="text-xs pb-2">URL import not working?</h1>
-        <Button
-          onClick={manualImportEvent}
-          className="cursor-pointer"
-          variant="outline"
-        >
-          Use Manual import
-        </Button>
-      </div>
-
+      {!coffeeImport && (
+        <div className="flex flex-col items-center pt-4">
+          <h1 className="text-xs pb-2">URL import not working?</h1>
+          <Button
+            onClick={manualImportEvent}
+            className="cursor-pointer"
+            variant="outline"
+          >
+            Use Manual import
+          </Button>
+        </div>
+      )}
       <div className="container">
         {(coffeeImport && importedUrl) || manualImport ? (
           <AddCoffeeComponent imported={coffeeImport} url={importedUrl} />

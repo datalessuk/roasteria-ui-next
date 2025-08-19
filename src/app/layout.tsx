@@ -1,5 +1,4 @@
 "use client";
-import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/features/nav/Nav";
@@ -20,6 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const fetchProfile = useUserStore((state) => state.fetchProfile);
+
   useEffect(() => {
     fetchProfile();
   }, [fetchProfile]);
@@ -33,8 +33,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NavBar />
-          <main className="flex-1">{children}</main>
+          <div className="relative z-10">
+            <NavBar />
+          </div>
+          <main className="flex-1 relative z-0">{children}</main>
           <Footer />
         </ThemeProvider>
       </body>
