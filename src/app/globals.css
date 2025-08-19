@@ -131,6 +131,10 @@
   padding: 5px;
 }
 
+.index {
+  z-index: 9999;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

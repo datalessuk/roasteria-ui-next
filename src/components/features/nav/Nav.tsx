@@ -1,17 +1,15 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Search, Moon, Sun, Menu } from "lucide-react";
+import { Menu, Coffee, Calculator, Rocket, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import {
   DropdownMenu,
@@ -19,29 +17,26 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { z } from "zod";
 
 import { createClient } from "@/utils/supabase/client";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import Link from "next/link";
 
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUserStore } from "@/store/userStore";
+import { SearchBar } from "./SearchBar";
 
 export default function NavBar() {
   const { profile, clearProfile } = useUserStore();
-
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const supabase = createClient();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
@@ -63,35 +58,6 @@ export default function NavBar() {
       router.push("/login");
     }
   };
-
-  const FormSchema = z.object({
-    search: z.string(),
-  });
-
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: {
-      search: "",
-    },
-  });
-
-  function InputForm() {
-    const form = useForm<z.infer<typeof FormSchema>>({
-      resolver: zodResolver(FormSchema),
-      defaultValues: {
-        search: "",
-      },
-    });
-  }
-
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    const query = new URLSearchParams();
-    if (data.search) {
-      query.set("name", data.search);
-    }
-    const searchUrl = `/search?${query.toString()}`;
-    router.push(searchUrl);
-  }
 
   return (
     <div className="dark:bg-gray-950/80 backdrop-blur-md">
@@ -131,45 +97,11 @@ export default function NavBar() {
             </NavigationMenu>
           </div>
 
-          <div className="flex-1 max-w-md mx-8">
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="relative w-full"
-              >
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-                <FormField
-                  control={form.control}
-                  name="search" // match your zod schema
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          type="text"
-                          placeholder="Search coffees..."
-                          className="w-full bg-white/80 backdrop-blur-sm border-white/20 rounded-full py-2.5 pl-10 pr-4 placeholder-gray-400 focus:ring-amber-500/50 focus:border-amber-500/50"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </form>
-            </Form>
+          <div className="hidden md:flex flex-1 max-w-md mx-8 relative">
+            <SearchBar />
           </div>
 
           <div className="flex items-center space-x-4">
-            {/* {mounted && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={toggleTheme}
-                className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white"
-              >
-                <Sun className="h-5 w-5" />
-              </Button>
-            )} */}
             {profile && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -216,7 +148,7 @@ export default function NavBar() {
               </div>
             )}
 
-            <Sheet>
+            <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
@@ -226,29 +158,59 @@ export default function NavBar() {
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
+              <SheetTitle className="text-white text-lg font-semibold px-4 mt-4 hidden">
+                Menu
+              </SheetTitle>
               <SheetContent
                 side="right"
-                className="bg-slate-900 border-slate-700"
+                className="bg-slate-900 border-l border-slate-700 flex flex-col px-4 pt-14 pb-6"
               >
-                <div className="flex flex-col space-y-4 mt-6">
-                  <Button
-                    variant="ghost"
-                    className="justify-start text-gray-300 hover:text-white hover:bg-slate-800"
+                <SheetTitle className="text-white text-lg font-semibold mb-6 hidden">
+                  Menu
+                </SheetTitle>
+
+                <div className="mb-6">
+                  <SearchBar closeSheet={() => setSheetOpen(false)} />
+                </div>
+
+                <nav className="flex flex-col gap-3">
+                  <Link
+                    href="/search"
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-700 bg-slate-800/60 hover:bg-slate-800/90 transition-colors"
                   >
-                    Explore
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="justify-start text-gray-300 hover:text-white hover:bg-slate-800"
+                    <Coffee className="w-5 h-5 text-amber-400" />
+                    <span className="text-slate-100">Explore</span>
+                  </Link>
+                  <Link
+                    href="/"
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-700 bg-slate-800/60 hover:bg-slate-800/90 transition-colors"
                   >
-                    Advanced Search
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    className="justify-start text-gray-300 hover:text-white hover:bg-slate-800"
+                    <Calculator className="w-5 h-5 text-emerald-400" />
+                    <span className="text-slate-100">Brewing Ratio</span>
+                  </Link>
+                  <Link
+                    href="/"
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-700 bg-slate-800/60 hover:bg-slate-800/90 transition-colors"
                   >
-                    Flavor Space
-                  </Button>
+                    <Rocket className="w-5 h-5 text-sky-400" />
+                    <span className="text-slate-100">Flavour Space</span>
+                  </Link>
+                </nav>
+                <div className="mt-auto pt-6">
+                  {profile ? (
+                    <Button
+                      onClick={signOut}
+                      variant="custom"
+                      size="icon"
+                      className="w-full"
+                    >
+                      <LogOut /> Sign Out
+                    </Button>
+                  ) : (
+                    <Button variant="custom" className="w-full">
+                      Sign in
+                    </Button>
+                  )}
                 </div>
               </SheetContent>
             </Sheet>
