@@ -3,6 +3,10 @@ import { useUserStore } from "@/store/userStore";
 import { ICoffee } from "@/types/coffee";
 import { Coffee, Heart, Pencil, Timer } from "lucide-react";
 import { toast } from "sonner";
+import ReviewDialog from "../dialogs/ReviewDialog";
+import { useState } from "react";
+import { useReview } from "@/hooks/review/useGetUserReviews";
+import { Rating, RatingButton } from "@/components/ui/shadcn-io/rating";
 
 interface CoffeeStatsProps {
   coffee?: ICoffee | null;
@@ -10,6 +14,8 @@ interface CoffeeStatsProps {
 
 export default function CoffeeStats({ coffee }: CoffeeStatsProps) {
   const { profile, addDrank, toTry, loading } = useUserStore();
+  const [open, setOpen] = useState(false);
+  const { review, refetch } = useReview(coffee?.id || 0);
 
   if (!profile) {
     return <></>;
@@ -21,6 +27,7 @@ export default function CoffeeStats({ coffee }: CoffeeStatsProps) {
 
   const hasDrank = profile?.drank?.includes(coffee?.id);
   const haveTried = profile?.to_try.includes(coffee?.id);
+  const hasReview = !!review?.rating;
 
   const addCoffeeDrank = async (coffeeId: number) => {
     if (!profile) return;
@@ -43,7 +50,7 @@ export default function CoffeeStats({ coffee }: CoffeeStatsProps) {
   };
 
   return (
-    <div className="flex justify-between items-center dark:bg-gray-800/50 p-8 rounded-2xl">
+    <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 justify-between items-center dark:bg-gray-800/50 p-8 rounded-2xl">
       <div className="flex space-x-4">
         <Button
           onClick={() => addCoffeeDrank(coffee?.id)}
@@ -83,19 +90,34 @@ export default function CoffeeStats({ coffee }: CoffeeStatsProps) {
           size="icon"
           className="flex flex-col items-center justify-center w-20 h-20 bg-gray-900 hover:bg-gray-800 border-gray-700 hover:border-gray-600 rounded-xl"
         >
-          {}
           <Heart className="scale-125" />
           <span className="text-white text-sm font-medium">Favorite</span>
         </Button>
+        <div className="flex flex-wrap space-x-4">
+          <Rating
+            className="flex-shrink-0 sm:flex-shrink"
+            value={review?.rating || 0}
+          >
+            {Array.from({ length: 5 }).map((_, index) => (
+              <RatingButton className="text-yellow-500" key={index} />
+            ))}
+          </Rating>
+        </div>
       </div>
       <Button
-        disabled
-        variant={"custom"}
+        onClick={() => setOpen(true)}
         className="ml-4 flex items-center space-x-2"
       >
         <Pencil />
-        <span>Write Review</span>
+        <span>{hasReview ? "Edit Review" : "Add Review"}</span>
       </Button>
+      <ReviewDialog
+        review={review}
+        coffee={coffee}
+        onReviewUpdated={refetch}
+        open={open}
+        onOpenChange={setOpen}
+      />
     </div>
   );
 }

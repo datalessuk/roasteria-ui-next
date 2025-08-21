@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Footer from "@/components/features/footer/Footer";
 import { useUserStore } from "@/store/userStore";
 import { useEffect } from "react";
+import { Toaster } from "@/components/ui/sonner";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({
             <NavBar />
           </div>
           <main className="flex-1 relative z-0">{children}</main>
+          <Toaster />
           <Footer />
         </ThemeProvider>
       </body>

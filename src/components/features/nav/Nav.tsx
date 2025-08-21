@@ -74,15 +74,18 @@ export default function NavBar() {
               <NavigationMenuList className="space-x-6">
                 <NavigationMenuItem>
                   <NavigationMenuLink
-                    href="/search"
+                    href="/coffees"
                     className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
                   >
                     Explore
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuLink className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium">
-                    Brewing Ratio
+                  <NavigationMenuLink
+                    href="/search"
+                    className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
+                  >
+                    Advance Search
                   </NavigationMenuLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
@@ -90,7 +93,7 @@ export default function NavBar() {
                     href="#"
                     className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
                   >
-                    Flavor Space
+                    Brewing Ratios
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
