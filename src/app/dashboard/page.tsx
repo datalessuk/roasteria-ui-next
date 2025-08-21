@@ -47,13 +47,14 @@ export default function DashBoard() {
           </div>
         </div>
       </section>
-      <section>
-        <div className="mx-auto py-2 p-30 bg-gradient-to-b from-[#2C1810] to-[#4A3628] dark:from-gray-900 dark:to-gray-800 pb-10">
+      <section className="w-full bg-gradient-to-b from-[#2C1810] to-[#4A3628] dark:from-gray-900 dark:to-gray-800">
+        <div className="w-full py-2 pb-10 px-4">
           <div className="text-center py-4">
             <h1 className="text-5xl">Find Your Flavor</h1>
             <h2>Explore our range and uncover your ideal cup!</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-2">
             <HomePageHero
               title="Single Origin Coffees"
               text="Explore Single Origin"
@@ -67,7 +68,7 @@ export default function DashBoard() {
             <HomePageHero
               title="Natural Coffees"
               text="Explore Natural Processed"
-              url="proccessing=natural"
+              url="processing=natural"
             />
           </div>
         </div>

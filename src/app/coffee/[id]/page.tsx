@@ -49,7 +49,6 @@ export default function CoffeeSingle() {
               coffee={parseOrigin(!!coffee?.single_origin)}
               title="Type"
             />
-            <CoffeeInfoText coffee={coffee?.origin || "Blend"} title="Origin" />
           </div>
           <CoffeeInfoFlavor coffee={coffee} />
           <CoffeeInfoAbout coffee={coffee} />

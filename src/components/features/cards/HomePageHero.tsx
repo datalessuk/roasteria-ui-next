@@ -16,8 +16,8 @@ export default function HomePageHero({ title, text, url }: HomePageHeroProps) {
 
   return (
     <div
-      onClick={() => openCoffee()}
-      className="bg-card/50 rounded-xl p-6 border cursor-pointer hover:scale-[1.02]"
+      onClick={openCoffee}
+      className="w-full bg-card/50 rounded-xl p-6 border cursor-pointer hover:scale-[1.02] transition-transform"
     >
       <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-4">
         <span className="text-xl">
