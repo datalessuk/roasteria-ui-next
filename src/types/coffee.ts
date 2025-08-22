@@ -22,5 +22,6 @@ export interface ICoffee {
   user_id: string;
   image_url: string;
   origin: string;
+  roaster: string;
   tasting_notes_array?: string[];
 }

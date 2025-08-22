@@ -7,10 +7,19 @@ import { Button } from "@/components/ui/button";
 import CoffeeInfoFlavor from "@/components/features/layouts/CoffeeInfoFlavor";
 import CoffeeInfoAbout from "@/components/features/layouts/CoffeeInfoAbout";
 import CoffeeStats from "@/components/features/coffee/CoffeeStats";
+import Loading from "@/components/features/loading/Loading";
 
 export default function CoffeeSingle() {
   const { id } = useParams<{ id: string }>();
   const { coffee, loading, error } = useCoffee(id);
+
+  if (!coffee) {
+    return (
+      <div className="flex justify-center pt-4">
+        <p>Sorry coffee not found.</p>
+      </div>
+    );
+  }
 
   const parseOrigin = (type: boolean): string => {
     if (type) {
@@ -20,14 +29,14 @@ export default function CoffeeSingle() {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading message="Loading tasty coffee" />;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="container pt-4 mx-auto py-8">
+      <h1 className="text-4xl md:text-6xl mb-6 capitalize">{coffee?.name}</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
         <div>
-          <h1 className="text-4xl md:text-6xl mb-4">{coffee?.name}</h1>
           <figure className="dark:shadow-black/40 transform hover:scale-[1.02] transition-transform group shadow-xl">
             <Image
               src={coffee?.image_url ?? "/placeholder.png"}
@@ -49,6 +58,8 @@ export default function CoffeeSingle() {
               coffee={parseOrigin(!!coffee?.single_origin)}
               title="Type"
             />
+
+            <CoffeeInfoText coffee={coffee?.roaster} title="Roaster" />
           </div>
           <CoffeeInfoFlavor coffee={coffee} />
           <CoffeeInfoAbout coffee={coffee} />

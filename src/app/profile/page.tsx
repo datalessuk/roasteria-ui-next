@@ -1,6 +1,7 @@
 "use client";
 
 import ProfileBadge from "@/components/features/layouts/ProfileBadge";
+import Loading from "@/components/features/loading/Loading";
 import { useUserStore } from "@/store/userStore";
 import { useEffect, useState } from "react";
 
@@ -8,13 +9,19 @@ export default function Profile() {
   const { profile, loading } = useUserStore();
   const [drank, setDrank] = useState<number>();
   const [toTry, setToTry] = useState<number>();
+  const [reviewed, setReviewed] = useState<number>();
 
   useEffect(() => {
     if (profile?.drank) {
-      setDrank(profile.drank.length);
-      setToTry(profile.to_try.length);
+      setDrank(profile?.drank.length);
+      setToTry(profile?.to_try.length);
+      setReviewed(profile?.reviewed);
     }
   }, [profile]);
+
+  if (loading) {
+    return <Loading message="Loading profile !" />;
+  }
 
   if (!profile) {
     return (
@@ -51,7 +58,7 @@ export default function Profile() {
               <ProfileBadge count={drank} text="Have Tried" />
             </div>
             <div className="group bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/20 dark:to-red-800/20 rounded-xl p-8 border border-red-200 dark:border-red-800 hover:shadow-lg transition-all duration-200">
-              <ProfileBadge count={0} text="Favorites" />
+              <ProfileBadge count={reviewed} text="Coffees Reviewed" />
             </div>
           </div>
         </div>
