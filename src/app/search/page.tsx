@@ -15,6 +15,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import Loading from "@/components/features/loading/Loading";
+import { Suspense } from "react";
 
 export default function Search() {
   const [page, setPage] = useState(1);
@@ -41,7 +42,9 @@ export default function Search() {
       <div className="container mx-auto py-8">
         <div className="grid gap-8 lg:grid-cols-[350px_1fr]">
           <div className="rounded-lg border border-border text-card-foreground dark:shadow-md dark:shadow-black/20 bg-white/70 dark:bg-zinc-900/70 backdrop-blur">
-            <SearchComponent />
+            <Suspense fallback={<div>Loading search...</div>}>
+              <SearchComponent />
+            </Suspense>
           </div>
           <div className="flex rounded-lg border border-border flex-col gap-3 p-6 pb-2 dark:shadow-md dark:shadow-black/20 bg-white/70 dark:bg-zinc-900/70 backdrop-blur">
             <div>
