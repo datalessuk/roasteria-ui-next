@@ -3,4 +3,5 @@ export interface IProfile {
   username: string;
   to_try: number[];
   drank: number[];
+  reviewed: number;
 }

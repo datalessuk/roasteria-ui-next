@@ -14,7 +14,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import Loading from "@/app/search/loading";
+import Loading from "@/components/features/loading/Loading";
 
 export default function Search() {
   const [page, setPage] = useState(1);
@@ -51,7 +51,7 @@ export default function Search() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
               {loading ? (
                 <div className="col-span-full">
-                  <Loading />
+                  <Loading message="Loading Results!" />
                 </div>
               ) : (
                 coffees.map((coffee) => (

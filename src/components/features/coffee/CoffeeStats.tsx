@@ -50,8 +50,9 @@ export default function CoffeeStats({ coffee }: CoffeeStatsProps) {
   };
 
   return (
-    <div className="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 justify-between items-center dark:bg-gray-800/50 p-8 rounded-2xl">
-      <div className="flex space-x-4">
+    <div className="flex flex-col space-y-4 lg:flex-row lg:space-x-4 lg:space-y-0 justify-between items-center dark:bg-gray-800/50 p-8 rounded-2xl">
+      {/* Buttons - always on top on mobile/tablet, left on large desktop */}
+      <div className="flex space-x-4 justify-center lg:justify-start">
         <Button
           onClick={() => addCoffeeDrank(coffee?.id)}
           variant="outline"
@@ -84,29 +85,17 @@ export default function CoffeeStats({ coffee }: CoffeeStatsProps) {
             {haveTried ? "Tried" : "To Try"}
           </span>
         </Button>
-        <Button
-          disabled
-          variant="outline"
-          size="icon"
-          className="flex flex-col items-center justify-center w-20 h-20 bg-gray-900 hover:bg-gray-800 border-gray-700 hover:border-gray-600 rounded-xl"
-        >
-          <Heart className="scale-125" />
-          <span className="text-white text-sm font-medium">Favorite</span>
-        </Button>
-        <div className="flex flex-wrap space-x-4">
-          <Rating
-            className="flex-shrink-0 sm:flex-shrink"
-            value={review?.rating || 0}
-          >
-            {Array.from({ length: 5 }).map((_, index) => (
-              <RatingButton className="text-yellow-500" key={index} />
-            ))}
-          </Rating>
-        </div>
+      </div>
+      <div className="flex justify-center lg:justify-start lg:ml-4">
+        <Rating className="flex-shrink-0" value={review?.rating || 0}>
+          {Array.from({ length: 5 }).map((_, index) => (
+            <RatingButton className="text-yellow-500" key={index} />
+          ))}
+        </Rating>
       </div>
       <Button
         onClick={() => setOpen(true)}
-        className="ml-4 flex items-center space-x-2"
+        className="flex items-center space-x-2 flex-shrink-0"
       >
         <Pencil />
         <span>{hasReview ? "Edit Review" : "Add Review"}</span>

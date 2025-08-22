@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="flex flex-col items-center justify-center text-center">
           <div className="mb-4">
             <a
-              href="https://github.com/yourusername/your-repo"
+              href="https://github.com/datalessuk/roasteria-ui-next"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 text-gray-900 dark:text-white font-medium text-base border border-gray-200 dark:border-gray-600"

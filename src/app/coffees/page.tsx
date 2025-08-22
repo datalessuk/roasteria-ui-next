@@ -13,10 +13,14 @@ import { useGetRoasters } from "@/hooks/public/useGetRoasters";
 import { useEffect, useState } from "react";
 import { ChevronRightIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Loading from "@/components/features/loading/Loading";
 
 export default function Coffees() {
   const router = useRouter();
-  const { roasters } = useGetRoasters();
+  const { roasters, loading } = useGetRoasters();
+
+  const [selectedRoaster, setSelectedRoaster] = useState<string | null>(null);
+  const { coffeeByRoaster } = useGetCoffeesByRoaster(selectedRoaster || "");
 
   useEffect(() => {
     if (roasters.length > 0 && !selectedRoaster) {
@@ -24,10 +28,11 @@ export default function Coffees() {
         roasters[Math.floor(Math.random() * roasters.length)];
       setSelectedRoaster(randomRoaster);
     }
-  }, [roasters]);
+  }, [roasters, selectedRoaster]);
 
-  const [selectedRoaster, setSelectedRoaster] = useState<string | null>(null);
-  const { coffeeByRoaster } = useGetCoffeesByRoaster(selectedRoaster || "");
+  if (loading) {
+    return <Loading message="Loading Roasters !" />;
+  }
 
   const openRoaster = () => {
     if (!selectedRoaster) {
@@ -54,9 +59,12 @@ export default function Coffees() {
           </Button>
         </div>
         <div className="pb-2 pt-2">
-          <Select onValueChange={(value) => setSelectedRoaster(value)}>
-            <SelectTrigger className="w-[300px]">
-              <SelectValue placeholder="Roasters" />
+          <Select
+            value={selectedRoaster || ""}
+            onValueChange={(value) => setSelectedRoaster(value)}
+          >
+            <SelectTrigger className="w-[300px] capitalize">
+              <SelectValue placeholder="Select a roaster..." />
             </SelectTrigger>
             <SelectContent>
               {roasters.map((roaster, index) => (
