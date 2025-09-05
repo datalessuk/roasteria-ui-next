@@ -17,3 +17,5 @@ Styling: Tailwind CSS
 UI Components: shadcn/ui
 State Management: Zustand
 Icons: Lucide React
+
+Live link: https://roasteria.netlify.app/
