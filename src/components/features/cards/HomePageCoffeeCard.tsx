@@ -4,15 +4,27 @@ import { useRouter } from "next/navigation";
 
 interface CoffeeCardProps {
   coffee?: ICoffeePublic;
+  loading?: boolean;
 }
 
-export default function HomePageCoffeeCard({ coffee }: CoffeeCardProps) {
+export default function HomePageCoffeeCard({
+  coffee,
+  loading,
+}: CoffeeCardProps) {
   const router = useRouter();
 
   const openCoffee = (id: number): void => {
     if (!id) return;
     router.push(`/coffee/${id}`);
   };
+
+  if (loading) {
+    return (
+      <div className="relative w-80 h-96 rounded-xl overflow-hidden shadow-lg">
+        <div className="w-full h-full bg-muted animate-pulse" />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -34,7 +46,7 @@ export default function HomePageCoffeeCard({ coffee }: CoffeeCardProps) {
           {coffee?.name}
         </h2>
         {coffee?.roast_level && (
-          <p className="text-gray-300 text-sm mt-1 truncate">
+          <p className="text-gray-300 text-sm mt-1 truncate capitalize">
             {coffee.roast_level}
           </p>
         )}

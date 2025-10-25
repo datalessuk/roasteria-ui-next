@@ -41,9 +41,15 @@ export default function DashBoard() {
             <h1 className="text-4xl">Featured Coffees</h1>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 justify-items-center">
-            {coffees.slice(0, 4).map((coffee) => (
-              <HomePageCoffeeCard key={coffee.id} coffee={coffee} />
-            ))}
+            {loading
+              ? [...Array(4)].map((_, index) => (
+                  <HomePageCoffeeCard key={index} loading={true} />
+                ))
+              : coffees
+                  .slice(0, 4)
+                  .map((coffee) => (
+                    <HomePageCoffeeCard key={coffee.id} coffee={coffee} />
+                  ))}
           </div>
         </div>
       </section>
