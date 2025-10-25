@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useCoffee } from "@/hooks/public/useCoffee";
 import CoffeeInfoText from "@/components/features/layouts/CoffeeInfoText";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,7 @@ import Loading from "@/components/features/loading/Loading";
 export default function CoffeeSingle() {
   const { id } = useParams<{ id: string }>();
   const { coffee, loading, error } = useCoffee(id);
+  const router = useRouter();
 
   if (!coffee) {
     return (
@@ -33,22 +34,32 @@ export default function CoffeeSingle() {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="container pt-4 mx-auto py-8">
-      <h1 className="text-4xl md:text-6xl mb-6 capitalize">{coffee?.name}</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+    <div className="container pt-4 mx-auto py-8 px-4">
+      <div className="mb-8">
+        <div className="inline-block px-3 py-1 bg-amber-900/20 rounded-full mb-3">
+          <span className="text-sm text-amber-600 dark:text-amber-400 font-medium">
+            {coffee?.roaster}
+          </span>
+        </div>
+        <h1 className="text-4xl md:text-6xl font-bold capitalize leading-tight">
+          {coffee?.name}
+        </h1>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
         <div>
-          <figure className="dark:shadow-black/40 transform hover:scale-[1.02] transition-transform group shadow-xl">
+          <div className="relative overflow-hidden rounded-2xl shadow-2xl dark:shadow-black/40 transform hover:scale-[1.02] transition-transform duration-300 group">
             <Image
               src={coffee?.image_url ?? "/placeholder.png"}
               alt={coffee?.name ?? "Coffee image"}
               width={800}
               height={600}
-              className="rounded-lg w-full object-cover"
+              className="rounded-2xl w-full object-cover"
             />
-          </figure>
+          </div>
         </div>
-        <div className="space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <CoffeeInfoText
               coffee={coffee?.processing_method}
               title="Process"
@@ -58,23 +69,24 @@ export default function CoffeeSingle() {
               coffee={parseOrigin(!!coffee?.single_origin)}
               title="Type"
             />
-
             <CoffeeInfoText coffee={coffee?.roaster} title="Roaster" />
           </div>
+
           <CoffeeInfoFlavor coffee={coffee} />
           <CoffeeInfoAbout coffee={coffee} />
-          <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-4 hover:bg-white/80 dark:hover:bg-gray-700/50 transition-colors">
-            <h1>Product website</h1>
+
+          <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 hover:bg-white/80 dark:hover:bg-gray-700/50 transition-colors">
+            <h2 className="text-lg font-semibold mb-3">Product Website</h2>
             <Button
               variant={"custom"}
+              className="w-full sm:w-auto"
               onClick={() => window.open(coffee?.url, "_blank")}
             >
-              Coffee Link
+              View Coffee Link
             </Button>
           </div>
-          <div>
-            <CoffeeStats coffee={coffee} />
-          </div>
+
+          <CoffeeStats coffee={coffee} />
         </div>
       </div>
     </div>

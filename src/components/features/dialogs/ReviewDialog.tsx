@@ -19,13 +19,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { boolean, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { useSubmitReview } from "@/hooks/review/useSubmitReview";
 import { toast } from "sonner";
 import { ISingleReview } from "@/types/review";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Spinner } from "@/components/ui/spinner";
 
 interface ReviewDialogProps {
   coffee: ICoffee | null;
@@ -134,7 +135,15 @@ export default function ReviewDialog({
             />
 
             <div className="flex justify-end pt-2">
-              <Button type="submit">Submit Review</Button>
+              <Button type="submit" disabled={loading}>
+                {loading ? (
+                  <>
+                    <Spinner className="mr-2 h-4 w-4" /> Submitting...
+                  </>
+                ) : (
+                  "Submit Review"
+                )}
+              </Button>
             </div>
           </form>
         </Form>
