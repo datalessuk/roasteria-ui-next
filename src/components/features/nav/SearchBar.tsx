@@ -18,7 +18,7 @@ import { useOutsideClick } from "@/hooks/utils/useOutSideClick";
 import { Button } from "@/components/ui/button";
 
 interface SearchBarProps {
-  closeSheet?: () => void; // optional callback to close the sheet
+  closeSheet?: () => void;
 }
 
 export function SearchBar({ closeSheet }: SearchBarProps) {

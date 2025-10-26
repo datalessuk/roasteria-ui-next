@@ -1,9 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Menu, Coffee, Calculator, Rocket, LogOut } from "lucide-react";
+import { Menu, Coffee, Rocket, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   NavigationMenu,
@@ -28,8 +27,6 @@ import {
 import Link from "next/link";
 
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useUserStore } from "@/store/userStore";
 import { SearchBar } from "./SearchBar";
 
@@ -88,14 +85,14 @@ export default function NavBar() {
                     Advance Search
                   </NavigationMenuLink>
                 </NavigationMenuItem>
-                <NavigationMenuItem>
+                {/* <NavigationMenuItem>
                   <NavigationMenuLink
                     href="#"
                     className="text-gray-300 hover:text-white transition-colors duration-200 text-sm font-medium"
                   >
                     Brewing Ratios
                   </NavigationMenuLink>
-                </NavigationMenuItem>
+                </NavigationMenuItem> */}
               </NavigationMenuList>
             </NavigationMenu>
           </div>
@@ -114,8 +111,10 @@ export default function NavBar() {
                   >
                     <Avatar className="h-8 w-8">
                       <AvatarImage src="/avatars/01.png" alt="@username" />
-                      <AvatarFallback className="bg-amber-500 text-slate-900 font-semibold">
-                        D
+                      <AvatarFallback className="bg-amber-500 text-slate-900 font-semibold ">
+                        {profile?.username
+                          ? profile.username.charAt(0).toUpperCase()
+                          : "A"}
                       </AvatarFallback>
                     </Avatar>
                   </Button>
@@ -184,13 +183,13 @@ export default function NavBar() {
                     <Coffee className="w-5 h-5 text-amber-400" />
                     <span className="text-slate-100">Explore</span>
                   </Link>
-                  <Link
+                  {/* <Link
                     href="/"
                     className="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-700 bg-slate-800/60 hover:bg-slate-800/90 transition-colors"
                   >
                     <Calculator className="w-5 h-5 text-emerald-400" />
                     <span className="text-slate-100">Brewing Ratio</span>
-                  </Link>
+                  </Link> */}
                   <Link
                     href="/"
                     className="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-700 bg-slate-800/60 hover:bg-slate-800/90 transition-colors"
