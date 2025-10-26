@@ -10,11 +10,12 @@ interface UserState {
   addDrank: (coffeeId: number) => Promise<boolean>;
   toTry: (coffeeId: number) => Promise<boolean>;
   clearProfile: () => void;
+  updateUsername: (newUsername: string) => void;
 }
 
 export const useUserStore = create<UserState>((set, get) => ({
   profile: null,
-  loading: false,
+  loading: true,
   error: null,
 
   fetchProfile: async () => {
@@ -41,7 +42,9 @@ export const useUserStore = create<UserState>((set, get) => ({
       if (error) throw error;
 
       set({ profile: data as IProfile, loading: false });
-    } catch (err) {}
+    } catch (err) {
+      set({ error: (err as Error).message, loading: false });
+    }
   },
 
   addDrank: async (coffeeId: number): Promise<boolean> => {
@@ -91,10 +94,18 @@ export const useUserStore = create<UserState>((set, get) => ({
       set({ profile: data as IProfile });
       return true;
     } catch (err) {
-      console.error("Failed to add drank:", err);
+      console.error("Failed to add toTry:", err);
       return false;
     }
   },
 
   clearProfile: () => set({ profile: null, error: null, loading: false }),
+
+  updateUsername: (newUsername: string) => {
+    set((state) => ({
+      profile: state.profile
+        ? { ...state.profile, username: newUsername }
+        : state.profile,
+    }));
+  },
 }));
