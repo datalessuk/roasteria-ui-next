@@ -95,7 +95,7 @@ export default function Profile() {
                     disabled={userLoading}
                     className="w-full h-12 text-lg font-semibold"
                   >
-                    {userLoading ? "Creating Profile..." : "Create Profile"}
+                    {userLoading ? "Creating Username..." : "Add Username"}
                   </Button>
                 </form>
               </div>
