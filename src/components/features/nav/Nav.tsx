@@ -191,11 +191,11 @@ export default function NavBar() {
                     <span className="text-slate-100">Brewing Ratio</span>
                   </Link> */}
                   <Link
-                    href="/"
+                    href="/coffees"
                     className="flex items-center gap-3 px-4 py-3 rounded-xl border border-slate-700 bg-slate-800/60 hover:bg-slate-800/90 transition-colors"
                   >
                     <Rocket className="w-5 h-5 text-sky-400" />
-                    <span className="text-slate-100">Flavour Space</span>
+                    <span className="text-slate-100">Roasters</span>
                   </Link>
                 </nav>
                 <div className="mt-auto pt-6">
