@@ -14,6 +14,8 @@ export default function CoffeeSingle() {
   const { coffee, loading, error } = useCoffee(id);
   const router = useRouter();
 
+  if (loading) return <Loading message="Loading tasty coffee" />;
+
   if (!coffee) {
     return (
       <div className="flex justify-center pt-4">
@@ -30,14 +32,13 @@ export default function CoffeeSingle() {
     }
   };
 
-  if (loading) return <Loading message="Loading tasty coffee" />;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="container pt-4 mx-auto py-8 px-4">
       <div className="mb-8">
         <div className="inline-block px-3 py-1 bg-amber-900/20 rounded-full mb-3">
-          <span className="text-sm text-amber-600 dark:text-amber-400 font-medium">
+          <span className="text-sm text-amber-600 dark:text-amber-400 font-medium capitalize">
             {coffee?.roaster}
           </span>
         </div>
