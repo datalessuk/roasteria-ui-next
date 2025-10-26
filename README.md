@@ -20,6 +20,7 @@ Built as a learning project to demonstrate React/Next.js skills after 3 years of
 ## 🛠️ Tech Stack
 
 **Frontend:**
+
 - Next.js 15 (App Router)
 - TypeScript
 - Tailwind CSS
@@ -27,10 +28,16 @@ Built as a learning project to demonstrate React/Next.js skills after 3 years of
 - Zustand (state management)
 
 **Backend:**
+
 - Supabase (PostgreSQL database)
 - Supabase Auth (user authentication)
 - Row Level Security (RLS) for data protection
 
 **Deployment:**
+
 - Netlify (frontend)
 - Supabase (backend/database)
+
+- ## Screenshots
+- ![Main Page](assets/dashboard.png)
+- ![Search](assets/search.png)
