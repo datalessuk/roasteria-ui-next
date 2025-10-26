@@ -1,21 +1,36 @@
-☕ Roasteria UI Next
-A modern coffee discovery and review platform built with Next.js, featuring a sleek interface for coffee enthusiasts to explore, track, and review their favorite brews.
-✨ Features
+# ☕ Roasteria
 
-Coffee Discovery - Explore a curated collection of specialty coffees
-Review System - Rate and review your favorite coffees
-Personal Tracking - Track coffees you've tried and want to try
-Flavor Profiles - Detailed tasting notes and brewing information
-Responsive Design - Optimized for desktop, tablet, and mobile
-User Authentication - Secure user accounts and profiles
+A full-stack coffee discovery and tracking platform where users can explore specialty coffees, write reviews, and share their coffee journey with the community.
 
-Tech Stack
+**Live Demo:** https://roasteria.netlify.app/
 
-Framework: Next.js 14 with App Router
-Language: TypeScript
-Styling: Tailwind CSS
-UI Components: shadcn/ui
-State Management: Zustand
-Icons: Lucide React
+## 🎯 Project Overview
 
-Live link: https://roasteria.netlify.app/
+Built as a learning project to demonstrate React/Next.js skills after 3 years of Angular development. Features include user authentication, search/filtering, reviews, and public user profiles.
+
+## ✨ Key Features
+
+- **Coffee Discovery** - Browse and search 100+ specialty coffees with advanced filtering
+- **User Profiles** - Public profiles showcasing coffee collections and reviews
+- **Review System** - Rate coffees and share tasting notes
+- **Personal Tracking** - Save coffees to "Tried" and "Want to Try" lists
+- **Roaster Pages** - Dedicated pages for coffee roasters with their full catalog
+- **Responsive Design** - Fully optimized for mobile, tablet, and desktop
+
+## 🛠️ Tech Stack
+
+**Frontend:**
+- Next.js 15 (App Router)
+- TypeScript
+- Tailwind CSS
+- shadcn/ui components
+- Zustand (state management)
+
+**Backend:**
+- Supabase (PostgreSQL database)
+- Supabase Auth (user authentication)
+- Row Level Security (RLS) for data protection
+
+**Deployment:**
+- Netlify (frontend)
+- Supabase (backend/database)
